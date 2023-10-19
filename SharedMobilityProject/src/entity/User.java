@@ -13,8 +13,6 @@ public class User {
     private double wallet;
     private int patente;
     private boolean casco;
-    private Vehicle veicolo;
-
 
     public User() {
         id = ID++;
@@ -90,13 +88,7 @@ public class User {
         this.casco = casco;
     }
 
-    public Vehicle getVeicolo() {
-        return veicolo;
-    }
 
-    public void setVeicolo(Vehicle veicolo) {
-        this.veicolo = veicolo;
-    }
 
     @Override
     public String toString() {
