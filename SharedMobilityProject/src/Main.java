@@ -1,13 +1,10 @@
 import database.Database;
-import entity.User;
-import entity.Vehicle;
-import entity.tipoveicolo.*;
 
 public class Main {
     public static void main(String[] args) {
         Database database = new Database();
         // Users
-        User u1 = new User("Cristian", "Torrisi",
+        /*User u1 = new User("Cristian", "Torrisi",
                 "CRSTN12TRRS345", "2001-01-31", 2);
         User u2 = new User("Stefano", "Casagrande",
                 "STFN67CSGRND89", "1998-04-26", 0);
@@ -44,6 +41,6 @@ public class Main {
         database.addRental(u3, v3);
         database.addRental(u4, v4);
         database.addRental(u5, v5);
-        // database.printRentals();
+        // database.printRentals();*/
     }
 }

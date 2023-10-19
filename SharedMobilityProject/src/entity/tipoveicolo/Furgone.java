@@ -5,11 +5,22 @@ import entity.Vehicle;
 public class Furgone extends Vehicle {
     private boolean carburante;
     private String targa;
+    private double livelloCarburante;
 
-    public Furgone(double tariffaOraria, int patente, String targa) {
-        super(tariffaOraria, patente);
+    @Override
+    public double getLivelloEnergia(){
+        return livelloCarburante;
+    }
+    @Override
+    public void setLivelloEnergia(double livello){
+        this.livelloCarburante=livello;
+    }
+
+    public Furgone(double tariffaOraria, int patente, double consumo,String targa) {
+        super(tariffaOraria, patente,consumo);
         carburante=true;
         this.targa = targa;
+        this.livelloCarburante=100.00;
     }
 
     public boolean isCarburante() {

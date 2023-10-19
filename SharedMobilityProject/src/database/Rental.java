@@ -3,6 +3,7 @@ package database;
 import entity.User;
 import entity.Vehicle;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Rental {
@@ -28,7 +29,15 @@ public class Rental {
         this.idVehicle = idVehicle;
         this.user = user;
         this.vehicle = vehicle;
+
     }
+
+    public void togliCarburante(){
+        Duration duration = Duration.between(start, end);
+        double price = duration.toHours() * vehicle.getConsumoOrario();
+        vehicle.setLivelloEnergia(vehicle.getLivelloEnergia()-price);
+    }
+
 
     public int getId() {
         return id;
