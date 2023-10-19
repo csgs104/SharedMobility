@@ -3,6 +3,7 @@ package database;
 import entity.User;
 import entity.Vehicle;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -11,6 +12,8 @@ public class Database {
 
     private Map<Integer, User> userTable = new HashMap<>();
     private Map<Integer, Vehicle> vehicleTable = new HashMap<>();
+    private Map<Integer, Rental> rentalTable = new HashMap<>();
+
 
     public Map<Integer, User> getUserTable() {
         return userTable;
@@ -18,6 +21,10 @@ public class Database {
 
     public Map<Integer, Vehicle> getVehicleTable() {
         return vehicleTable;
+    }
+
+    public Map<Integer, Rental> getRentalTable() {
+        return rentalTable;
     }
 
     public void addUser(User user) {
@@ -52,26 +59,46 @@ public class Database {
         return vehicleTable.containsKey(vehicleId);
     }
 
-    public boolean rent(User user, Vehicle vehicle) {
+    public Rental addRental(User user, Vehicle vehicle) {
+        User userIn = userTable.get(user.getId());
+        Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
+        Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+        return rentalTable.put(rental.getId(), rental);
+    }
+
+    public void startRental(Integer rentalId) {
+        rentalTable.get(rentalId).setStart(LocalDateTime.now());
+    }
+
+    public void endRental(Integer rentalId) {
+        rentalTable.get(rentalId).setEnd(LocalDateTime.now());
+    }
+
+    public Rental getRental(Integer rentalId) {
+        return rentalTable.get(rentalId);
+    }
+
+    public void deleteRental(Integer rentalId) {
+        rentalTable.remove(rentalId);
+    }
+
+    public boolean containsRental(Integer rentalId) {
+        return rentalTable.containsKey(rentalId);
+    }
+
+    public Rental rent(User user, Vehicle vehicle) {
         if (containsUser(user.getId()) && containsVehicle(vehicle.getId())) {
-            Vehicle v = vehicleTable.get(vehicle.getId());
-            User u = userTable.get(user.getId());
-            // u.setVehicle(v);
-            return true;
+            return addRental(user, vehicle);
         }
-        return false;
+        return null;
     }
 
-    public boolean free(User user) {
-        return true;
+    public User search(User user) {
+        return getUser(user.getId());
     }
 
-    public boolean search(User user) {
-        return true;
-    }
-
-    public boolean search(Vehicle user) {
-        return true;
+    public Vehicle search(Vehicle vehicle) {
+        return getVehicle(vehicle.getId());
     }
 
     public User registration(User user) {
@@ -99,6 +126,15 @@ public class Database {
         System.out.println("######################################## VEHICLES ########################################");
         System.out.println("##########################################################################################");
         for (Integer key : keys) System.out.println(userTable.get(key));
+        System.out.println("##########################################################################################");
+    }
+
+    public void printRentals() {
+        Set<Integer> keys = rentalTable.keySet();
+        System.out.println("##########################################################################################");
+        System.out.println("######################################## VEHICLES ########################################");
+        System.out.println("##########################################################################################");
+        for (Integer key : keys) System.out.println(rentalTable.get(key));
         System.out.println("##########################################################################################");
     }
 
