@@ -5,32 +5,39 @@ import java.util.Objects;
 public class Vehicle {
 
     private static int ID=0;
+    private boolean statoEnergia;
     private int id ;
     private String posizione;
     private boolean disponibilita;
-    private boolean statoCarburante;
+
     private double tariffaOraria;
     private int livello_patente;
+    private double consumoOrario;
 
 
-    public Vehicle(double tariffaOraria, int livello_patente) {
+    public Vehicle(double tariffaOraria, int livello_patente,double consumo) {
         this.id = ID++;
         this.disponibilita = true;
-        this.statoCarburante = true;
+        this.statoEnergia = true;
         this.tariffaOraria = tariffaOraria;
         this.livello_patente = livello_patente;
+        this.consumoOrario=consumo;
+    }
+
+    public double getConsumoOrario() {
+        return consumoOrario;
+    }
+
+    public void setConsumoOrario(double consumoOrario) {
+        this.consumoOrario = consumoOrario;
     }
 
     public String getPosizione() {
         return posizione;
     }
 
-    public boolean isDisponibilita() {
+    public boolean getDisponibilita() {
         return disponibilita;
-    }
-
-    public boolean isStatoCarburante() {
-        return statoCarburante;
     }
 
     public double getTariffaOraria() {
@@ -40,16 +47,25 @@ public class Vehicle {
     public int getPatente() {
         return livello_patente;
     }
+
     public void setPosizione(String posizione) {
         this.posizione = posizione;
     }
+
+    public boolean getStatoEnergia() {
+        return statoEnergia;
+    }
+    public double getLivelloEnergia(){
+        return 0.0;
+    }
+    public void setLivelloEnergia(double livello){   }
 
     public void setDisponibilita(boolean disponibilita) {
         this.disponibilita = disponibilita;
     }
 
-    public void setStatoCarburante(boolean statoCarburante) {
-        this.statoCarburante = statoCarburante;
+    public void setStatoEnergia(boolean statoCarburante) {
+        this.statoEnergia = statoCarburante;
     }
 
     public void setTariffaOraria(double tariffaOraria) {
@@ -79,7 +95,7 @@ public class Vehicle {
         return "id=" + id +
                 ", posizione='" + posizione + '\'' +
                 ", disponibilita=" + disponibilita +
-                ", statoCarburante=" + statoCarburante +
+                ", statoEnergia=" + statoEnergia +
                 ", tariffaOraria=" + tariffaOraria +
                 ", patente=" + livello_patente;
     }
