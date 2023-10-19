@@ -10,15 +10,15 @@ public class Vehicle {
     private boolean disponibilita;
     private boolean statoCarburante;
     private double tariffaOraria;
-    private int patente;
+    private int livello_patente;
 
 
-    public Vehicle(double tariffaOraria, int patente) {
+    public Vehicle(double tariffaOraria, int livello_patente) {
         this.id = ID++;
         this.disponibilita = true;
         this.statoCarburante = true;
         this.tariffaOraria = tariffaOraria;
-        this.patente = patente;
+        this.livello_patente = livello_patente;
     }
 
     public String getPosizione() {
@@ -38,7 +38,7 @@ public class Vehicle {
     }
 
     public int getPatente() {
-        return patente;
+        return livello_patente;
     }
     public void setPosizione(String posizione) {
         this.posizione = posizione;
@@ -81,6 +81,6 @@ public class Vehicle {
                 ", disponibilita=" + disponibilita +
                 ", statoCarburante=" + statoCarburante +
                 ", tariffaOraria=" + tariffaOraria +
-                ", patente=" + patente;
+                ", patente=" + livello_patente;
     }
 }

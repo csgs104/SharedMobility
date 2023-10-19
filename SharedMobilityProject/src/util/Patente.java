@@ -37,4 +37,13 @@ public class Patente {
     public void setDataRilasco(String dataRilasco) {
         this.dataRilasco = dataRilasco;
     }
+
+    /**
+     * ToString solo per stampare il livello patente
+     * @return livello patente utente
+     */
+    @Override
+    public String toString() {
+        return String.valueOf(livello);
+    }
 }
