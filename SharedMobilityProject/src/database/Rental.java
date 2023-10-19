@@ -16,7 +16,6 @@ public class Rental {
     private User user = null;
     private Vehicle vehicle = null;
 
-
     public Rental(int idUser, int idVehicle) {
         id = ID++;
         this.idUser = idUser;
@@ -83,6 +82,13 @@ public class Rental {
                 ", idVehicle=" + idVehicle +
                 ", start=" + start +
                 ", end=" + end +
+                ", UserName=" + user.getName() + " " + user.getSurname() +
+                ", VehicleName=" + vehicle.getClass().getName().split("\\.")[2] +
                 '}';
     }
+
+    public static boolean checkAll(User user, Vehicle vehicle) {
+        return true;
+    }
+
 }

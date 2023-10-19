@@ -59,19 +59,25 @@ public class Database {
         return vehicleTable.containsKey(vehicleId);
     }
 
-    public Rental addRental(User user, Vehicle vehicle) {
+    public void addRental(User user, Vehicle vehicle) {
         User userIn = userTable.get(user.getId());
         Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
-        Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
-        return rentalTable.put(rental.getId(), rental);
+        if (userIn != null && vehicleIn != null) {
+            Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+            rentalTable.put(rental.getId(), rental);
+        }
     }
 
     public void startRental(Integer rentalId) {
-        rentalTable.get(rentalId).setStart(LocalDateTime.now());
+        Rental rental = rentalTable.get(rentalId);
+        rental.setStart(LocalDateTime.now());
+        rental.getVehicle().setDisponibilita(false);
     }
 
     public void endRental(Integer rentalId) {
-        rentalTable.get(rentalId).setEnd(LocalDateTime.now());
+        Rental rental = rentalTable.get(rentalId);
+        rental.setEnd(LocalDateTime.now());
+        rental.getVehicle().setDisponibilita(true);
     }
 
     public Rental getRental(Integer rentalId) {
@@ -87,8 +93,11 @@ public class Database {
     }
 
     public Rental rent(User user, Vehicle vehicle) {
-        if (containsUser(user.getId()) && containsVehicle(vehicle.getId())) {
-            return addRental(user, vehicle);
+        User userIn = userTable.get(user.getId());
+        Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
+        if (userIn != null && vehicleIn != null && Rental.checkAll(userIn, vehicleIn)) {
+            Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+            return rentalTable.put(rental.getId(), rental);
         }
         return null;
     }
@@ -112,20 +121,20 @@ public class Database {
     }
 
     public void printUsers() {
-        Set<Integer> keys = vehicleTable.keySet();
+        Set<Integer> keys = userTable.keySet();
         System.out.println("##########################################################################################");
         System.out.println("######################################### USERS #########################################");
         System.out.println("##########################################################################################");
-        for (Integer key : keys) System.out.println(vehicleTable.get(key));
+        for (Integer key : keys) System.out.println(userTable.get(key));
         System.out.println("##########################################################################################");
     }
 
     public void printVehicles() {
-        Set<Integer> keys = userTable.keySet();
+        Set<Integer> keys = vehicleTable.keySet();
         System.out.println("##########################################################################################");
-        System.out.println("######################################## VEHICLES ########################################");
+        System.out.println("######################################### RENTAL #########################################");
         System.out.println("##########################################################################################");
-        for (Integer key : keys) System.out.println(userTable.get(key));
+        for (Integer key : keys) System.out.println(vehicleTable.get(key));
         System.out.println("##########################################################################################");
     }
 
