@@ -132,7 +132,7 @@ public class Database {
     public void printVehicles() {
         Set<Integer> keys = vehicleTable.keySet();
         System.out.println("##########################################################################################");
-        System.out.println("######################################### RENTAL #########################################");
+        System.out.println("######################################## VEHICLES #######################################");
         System.out.println("##########################################################################################");
         for (Integer key : keys) System.out.println(vehicleTable.get(key));
         System.out.println("##########################################################################################");
@@ -141,7 +141,7 @@ public class Database {
     public void printRentals() {
         Set<Integer> keys = rentalTable.keySet();
         System.out.println("##########################################################################################");
-        System.out.println("######################################## VEHICLES ########################################");
+        System.out.println("######################################## RENTAL ########################################");
         System.out.println("##########################################################################################");
         for (Integer key : keys) System.out.println(rentalTable.get(key));
         System.out.println("##########################################################################################");
