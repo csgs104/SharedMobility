@@ -96,8 +96,20 @@ public class Rental {
                 '}';
     }
 
+    /**
+     * Facciamo un check dei dati inseriti, verificando la consistenza dei dati
+     * @param user utente
+     * @param vehicle veicolo
+     * @return true se tutto ok e false se è andato male qualcosa
+     */
     public static boolean checkAll(User user, Vehicle vehicle) {
-        return true;
+        if (user.getPatente().getLivello() > vehicle.getPatente() || !vehicle.getDisponibilita() || !vehicle.getStatoEnergia()
+                || user.getWallet() < 0) {
+            return false;
+        }
+        else
+            return true;
     }
+
 
 }

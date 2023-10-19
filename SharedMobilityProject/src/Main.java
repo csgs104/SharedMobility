@@ -42,5 +42,7 @@ public class Main {
         database.addRental(u4, v4);
         database.addRental(u5, v5);
         // database.printRentals();*/
+
+
     }
 }
