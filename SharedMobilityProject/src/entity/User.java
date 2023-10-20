@@ -26,7 +26,20 @@ public class User {
         this.data_nascita = data_nascita;
         this.wallet = 0.0;    //nuovo utente inizialmente non ha soldi
         this.patente = new Patente(level_patente);
+        this.casco = false;
     }
+    public User( int id,String name, String surname, String cod_fiscale, String data_nascita, double wallet, int level_patente,boolean casco) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.cod_fiscale = cod_fiscale;
+        this.data_nascita = data_nascita;
+        this.wallet = wallet;    //nuovo utente inizialmente non ha soldi
+        this.patente = new Patente(level_patente);
+        this.casco = casco;
+    }
+
+
 
     public int getId() {
         return id;
@@ -88,6 +101,17 @@ public class User {
         this.casco = casco;
     }
 
+    public static User readByCsv(String user_string){
+        String[] attributi = user_string.split(",");
+        // creiamo un oggetto utente a partire dagli attributi recuperati dalla riga del csv
+        return new User(Integer.parseInt(attributi[0]), attributi[1],attributi[2],attributi[3],attributi[4],Double.parseDouble(attributi[5]),
+               Integer.parseInt(attributi[6]),Boolean.parseBoolean(attributi[7]));
+    }
+
+    public String writeToCsv(){
+        return this.id + "," + this.name + "," + this.surname + "," + this.cod_fiscale + "," + this.wallet + ","+
+                this.patente + "," + this.casco;
+    }
 
 
     @Override

@@ -1,8 +1,12 @@
 import database.Database;
+import database.DatabaseFile;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) {
         Database database = new Database();
+        DatabaseFile db_file = new DatabaseFile(Paths.get("SharedMobilityProject", "src", "files", "users.txt"));
         // Users
         /*User u1 = new User("Cristian", "Torrisi",
                 "CRSTN12TRRS345", "2001-01-31", 2);

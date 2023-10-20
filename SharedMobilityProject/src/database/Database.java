@@ -31,6 +31,7 @@ public class Database {
         userTable.put(user.getId(), user);
     }
 
+
     public User getUser(Integer userId) {
         return userTable.get(userId);
     }
@@ -148,5 +149,6 @@ public class Database {
         for (Integer key : keys) System.out.println(rentalTable.get(key));
         System.out.println("##########################################################################################");
     }
+
 
 }
