@@ -76,7 +76,7 @@ public class User {
         this.data_nascita = data_nascita;
     }
 
-    public void setWallet(int wallet) {
+    public void setWallet(double wallet) {
         this.wallet = wallet;
     }
 

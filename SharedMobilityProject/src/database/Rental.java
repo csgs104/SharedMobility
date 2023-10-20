@@ -111,5 +111,12 @@ public class Rental {
             return true;
     }
 
+    public void togliSoldi() {
+        Duration duration = Duration.between(start, end);
+        double price = duration.toHours() * vehicle.getTariffaOraria();
+        user.setWallet(user.getWallet() - price);
+    }
+
+
 
 }
