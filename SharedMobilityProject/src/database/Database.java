@@ -87,8 +87,8 @@ public class Database {
             rental.togliCarburante();
             User userUpdated = rental.getUser();
             Vehicle vehicleUpdated = rental.getVehicle();
-            userTable.put(userUpdated.getId(), userUpdated);
-            vehicleTable.put(vehicleUpdated.getId(), vehicleUpdated);
+            addUser(userUpdated);
+            addVehicle(vehicleUpdated);
         }
     }
 
@@ -124,12 +124,12 @@ public class Database {
     }
 
     public User registration(User user) {
-        userTable.put(user.getId(), user);
+        addUser(user);
         return userTable.get(user.getId());
     }
 
     public Vehicle registration(Vehicle vehicle) {
-        vehicleTable.put(vehicle.getId(), vehicle);
+        addVehicle(vehicle);
         return vehicleTable.get(vehicle.getId());
     }
 

@@ -13,7 +13,7 @@ public class Monopattino extends Vehicle {
 
     @Override
     public boolean getStatoEnergia() {
-        if (livelloElettricita < 5) setStatoEnergia(false);
+        if (livelloElettricita < 10) setStatoEnergia(false);
         return super.getStatoEnergia();
     }
 

@@ -9,9 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
+
     public static void main(String[] args) throws InterruptedException {
         // Database db = new Database();
         Database dbFile = new DatabaseFile(Paths.get( "src", "files", "users.txt"));
+
         // Users
         User u1 = new User("Cristian", "Torrisi",
                 "CRSTN12TRRS345", "2001-01-31", 2);
@@ -30,13 +32,14 @@ public class Main {
         Vehicle v3 = new Furgone("Torino", 10.00,5.50,"cdcdcdcd");
         Vehicle v4 = new Bicicletta("Napoli", 40.40);
         Vehicle v5 = new Moto("Verona", 0.90,60,"ffssaa");
+
         dbFile.addUser(u1);
         dbFile.addUser(u2);
         dbFile.addUser(u3);
         dbFile.addUser(u4);
         dbFile.addUser(u5);
         dbFile.printUsers();
-        System.out.println("");
+        System.out.println();
 
         dbFile.addVehicle(v1);
         dbFile.addVehicle(v2);
@@ -69,4 +72,5 @@ public class Main {
         System.out.println();
         dbFile.printVehicles();
     }
+
 }
