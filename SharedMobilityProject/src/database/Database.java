@@ -62,7 +62,7 @@ public class Database {
     public void addRental(User user, Vehicle vehicle) {
         User userIn = userTable.get(user.getId());
         Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
-        if (userIn != null && vehicleIn != null) {
+        if (userIn != null && vehicleIn != null && Rental.checkAll(userIn, vehicleIn) ) {
             Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
             rentalTable.put(rental.getId(), rental);
         }
@@ -78,6 +78,8 @@ public class Database {
         Rental rental = rentalTable.get(rentalId);
         rental.setEnd(LocalDateTime.now());
         rental.getVehicle().setDisponibilita(true);
+        rental.togliSoldi();
+        rental.togliCarburante();
     }
 
     public Rental getRental(Integer rentalId) {
