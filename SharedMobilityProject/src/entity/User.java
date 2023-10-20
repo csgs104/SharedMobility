@@ -1,45 +1,39 @@
 package entity;
 
 import java.util.Objects;
-import util.Patente;
+
 public class User {
 
     private static int ID = 0;
     private final int id;
     private String name;
     private String surname;
-    private String cod_fiscale;
-    private String data_nascita;
+    private String codFiscale;
+    private String dataNascita;
     private double wallet;
     private boolean casco;
-
     private Patente patente;
-    public User() {
-        id = ID++;
-    }
 
-    public User( String name, String surname, String cod_fiscale, String data_nascita, int level_patente) {
+    public User(String name, String surname, String codFiscale, String dataNascita, int levelPatente) {
         this.id = ID++;
         this.name = name;
         this.surname = surname;
-        this.cod_fiscale = cod_fiscale;
-        this.data_nascita = data_nascita;
-        this.wallet = 0.0;    //nuovo utente inizialmente non ha soldi
-        this.patente = new Patente(level_patente);
+        this.codFiscale = codFiscale;
+        this.dataNascita = dataNascita;
+        this.wallet = 0.0; // nuovo utente inizialmente non ha soldi
+        this.patente = new Patente(levelPatente);
         this.casco = false;
     }
-    public User( int id,String name, String surname, String cod_fiscale, String data_nascita, double wallet, int level_patente,boolean casco) {
+    public User(int id, String name, String surname, String codFiscale, String dataNascita, double wallet, int levelPatente,boolean casco) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.cod_fiscale = cod_fiscale;
-        this.data_nascita = data_nascita;
-        this.wallet = wallet;    //nuovo utente inizialmente non ha soldi
-        this.patente = new Patente(level_patente);
+        this.codFiscale = codFiscale;
+        this.dataNascita = dataNascita;
+        this.wallet = wallet;
+        this.patente = new Patente(levelPatente);
         this.casco = casco;
     }
-
-
 
     public int getId() {
         return id;
@@ -53,12 +47,12 @@ public class User {
         return surname;
     }
 
-    public String getCod_fiscale() {
-        return cod_fiscale;
+    public String getCodFiscale() {
+        return codFiscale;
     }
 
-    public String getData_nascita() {
-        return data_nascita;
+    public String getDataNascita() {
+        return dataNascita;
     }
 
     public double getWallet() {
@@ -69,7 +63,7 @@ public class User {
         return patente;
     }
 
-    public boolean isCasco() {
+    public boolean getCasco() {
         return casco;
     }
 
@@ -81,12 +75,12 @@ public class User {
         this.surname = surname;
     }
 
-    public void setCod_fiscale(String cod_fiscale) {
-        this.cod_fiscale = cod_fiscale;
+    public void setCodFiscale(String codFiscale) {
+        this.codFiscale = codFiscale;
     }
 
-    public void setData_nascita(String data_nascita) {
-        this.data_nascita = data_nascita;
+    public void setDataNascita(String dataNascita) {
+        this.dataNascita = dataNascita;
     }
 
     public void setWallet(double wallet) {
@@ -104,13 +98,14 @@ public class User {
     public static User readByCsv(String user_string){
         String[] attributi = user_string.split(",");
         // creiamo un oggetto utente a partire dagli attributi recuperati dalla riga del csv
-        return new User(Integer.parseInt(attributi[0]), attributi[1],attributi[2],attributi[3],attributi[4],Double.parseDouble(attributi[5]),
-               Integer.parseInt(attributi[6]),Boolean.parseBoolean(attributi[7]));
+        return new User(Integer.parseInt(attributi[0]), attributi[1], attributi[2], attributi[3],
+                attributi[4], Double.parseDouble(attributi[5]), Integer.parseInt(attributi[6]),
+                Boolean.parseBoolean(attributi[7]));
     }
 
     public String writeToCsv(){
-        return this.id + "," + this.name + "," + this.surname + "," + this.cod_fiscale + "," +this.data_nascita+ "," + this.wallet + ","+
-                this.patente + "," + this.casco;
+        return this.id + "," + this.name + "," + this.surname + "," + this.codFiscale + ","
+                + this.dataNascita + "," + this.wallet + "," + this.patente.toString() + "," + this.casco;
     }
 
     @Override
@@ -119,8 +114,8 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", cod_fiscale='" + cod_fiscale + '\'' +
-                ", data_nascita='" + data_nascita + '\'' +
+                ", cod_fiscale='" + codFiscale + '\'' +
+                ", data_nascita='" + dataNascita + '\'' +
                 ", wallet=" + wallet +
                 ", patente=" + patente.toString() +
                 ", casco=" + casco +
@@ -139,4 +134,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

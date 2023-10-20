@@ -1,8 +1,10 @@
 package database;
 
+import entity.Rental;
 import entity.User;
 import entity.Vehicle;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,10 +79,13 @@ public class Database {
 
     public void endRental(Integer rentalId) {
         Rental rental = rentalTable.get(rentalId);
-        rental.setEnd(LocalDateTime.now());
-        rental.getVehicle().setDisponibilita(true);
-        rental.togliSoldi();
-        rental.togliCarburante();
+        Duration duration = Duration.between(rental.getStart(), LocalDateTime.now());
+        if (duration.getSeconds() > 10) {
+            rental.setEnd(LocalDateTime.now());
+            rental.getVehicle().setDisponibilita(true);
+            rental.togliSoldi();
+            rental.togliCarburante();
+        }
     }
 
     public Rental getRental(Integer rentalId) {
@@ -100,7 +105,8 @@ public class Database {
         Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
         if (userIn != null && vehicleIn != null && Rental.checkAll(userIn, vehicleIn)) {
             Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
-            return rentalTable.put(rental.getId(), rental);
+            rentalTable.put(rental.getId(), rental);
+            return rentalTable.get(rental.getId());
         }
         return null;
     }

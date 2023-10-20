@@ -1,8 +1,10 @@
-package util;
+package entity;
 
 public class Patente {
+
     private int livello;
-    private String dataScadenza, dataRilasco;
+    private String dataScadenza;
+    private String dataRilasco;
 
     public Patente(int livello) {
         this.livello = livello;
@@ -46,4 +48,5 @@ public class Patente {
     public String toString() {
         return String.valueOf(livello);
     }
+
 }

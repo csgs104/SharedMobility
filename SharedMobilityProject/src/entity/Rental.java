@@ -1,7 +1,4 @@
-package database;
-
-import entity.User;
-import entity.Vehicle;
+package entity;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -32,13 +29,6 @@ public class Rental {
 
     }
 
-    public void togliCarburante(){
-        Duration duration = Duration.between(start, end);
-        double price = duration.toHours() * vehicle.getConsumoOrario();
-        vehicle.setLivelloEnergia(vehicle.getLivelloEnergia()-price);
-    }
-
-
     public int getId() {
         return id;
     }
@@ -49,10 +39,6 @@ public class Rental {
 
     public int getVehicleId() {
         return idVehicle;
-    }
-
-    public void setStart(LocalDateTime start) {
-        this.start = start;
     }
 
     public LocalDateTime getStart() {
@@ -69,6 +55,10 @@ public class Rental {
 
     public Vehicle getVehicle() {
         return vehicle;
+    }
+
+    public void setStart(LocalDateTime start) {
+        this.start = start;
     }
 
     public void setEnd(LocalDateTime end) {
@@ -103,20 +93,31 @@ public class Rental {
      * @return true se tutto ok e false se è andato male qualcosa
      */
     public static boolean checkAll(User user, Vehicle vehicle) {
-        if (user.getPatente().getLivello() > vehicle.getPatente() || !vehicle.getDisponibilita() || !vehicle.getStatoEnergia()
-                || user.getWallet() < 0) {
+        if (user.getPatente().getLivello() > vehicle.getLivelloPatente() || !vehicle.getDisponibilita()
+                || !vehicle.getStatoEnergia() || user.getWallet() < 0 || !vehicle.isEquipaggiato(user)) {
             return false;
         }
-        else
-            return true;
+        else return true;
     }
 
+    /**
+     * Togliamo il carburante al veicolo, calcoliamo la differenza in ore tra data di start e  data di end,
+     * quindi calcoliamo il consumo totale e lo togliamo dal livello di energia
+     */
+    public void togliCarburante(){
+        Duration duration = Duration.between(start, end);
+        double price = duration.toHours() * vehicle.getConsumoOrario();
+        vehicle.setLivelloEnergia(vehicle.getLivelloEnergia() - price);
+    }
+
+    /**
+     * Togliamo i soldi all'utente, calcoliamo la differenza in ore tra data di start e  data di end,
+     * quindi calcoliamo il prezzo totale e lo togliamo dal wallet
+     */
     public void togliSoldi() {
         Duration duration = Duration.between(start, end);
         double price = duration.toHours() * vehicle.getTariffaOraria();
         user.setWallet(user.getWallet() - price);
     }
-
-
 
 }

@@ -4,32 +4,27 @@ import java.util.Objects;
 
 public class Vehicle {
 
-    private static int ID=0;
-    private boolean statoEnergia;
-    private int id ;
+    private static int ID = 0;
+    private int id;
     private String posizione;
     private boolean disponibilita;
-
+    private boolean statoEnergia;
+    private final int livelloPatente;
     private double tariffaOraria;
-    private int livello_patente;
     private double consumoOrario;
 
-
-    public Vehicle(double tariffaOraria, int livello_patente,double consumo) {
+    public Vehicle(String posizione, int livelloPatente, double tariffaOraria, double consumoOrario) {
         this.id = ID++;
+        this.posizione = posizione;
         this.disponibilita = true;
         this.statoEnergia = true;
+        this.livelloPatente = livelloPatente;
         this.tariffaOraria = tariffaOraria;
-        this.livello_patente = livello_patente;
-        this.consumoOrario=consumo;
-    }
-
-    public double getConsumoOrario() {
-        return consumoOrario;
-    }
-
-    public void setConsumoOrario(double consumoOrario) {
         this.consumoOrario = consumoOrario;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getPosizione() {
@@ -40,25 +35,26 @@ public class Vehicle {
         return disponibilita;
     }
 
+    public boolean getStatoEnergia() {
+        return statoEnergia;
+    }
+
+    public int getLivelloPatente() {
+        return livelloPatente;
+    }
+
     public double getTariffaOraria() {
         return tariffaOraria;
     }
 
-    public int getPatente() {
-        return livello_patente;
+    public double getConsumoOrario() {
+        return consumoOrario;
     }
+
 
     public void setPosizione(String posizione) {
         this.posizione = posizione;
     }
-
-    public boolean getStatoEnergia() {
-        return statoEnergia;
-    }
-    public double getLivelloEnergia(){
-        return 0.0;
-    }
-    public void setLivelloEnergia(double livello){   }
 
     public void setDisponibilita(boolean disponibilita) {
         this.disponibilita = disponibilita;
@@ -72,9 +68,8 @@ public class Vehicle {
         this.tariffaOraria = tariffaOraria;
     }
 
-
-    public int getId() {
-        return id;
+    public void setConsumoOrario(double consumoOrario) {
+        this.consumoOrario = consumoOrario;
     }
 
     @Override
@@ -97,6 +92,18 @@ public class Vehicle {
                 ", disponibilita=" + disponibilita +
                 ", statoEnergia=" + statoEnergia +
                 ", tariffaOraria=" + tariffaOraria +
-                ", patente=" + livello_patente;
+                ", consumoOrario=" + consumoOrario +
+                ", patente=" + livelloPatente;
     }
+
+    public double getLivelloEnergia(){
+        return 0.0;
+    }
+
+    public void setLivelloEnergia(double livello) {   }
+
+    public boolean isEquipaggiato(User user) {
+        return true;
+    }
+
 }

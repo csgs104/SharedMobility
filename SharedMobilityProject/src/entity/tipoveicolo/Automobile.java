@@ -4,23 +4,14 @@ import entity.Vehicle;
 
 public class Automobile extends Vehicle {
 
-    private String targa;
-    private boolean carburante;
-    private double livelloCarburante;//inteso come percentuale
+    private final String targa;
+    private double livelloCarburante; // inteso come percentuale
 
-    public Automobile(double tariffaOraria, int patente,double consumo,String targa) {
-        super(tariffaOraria,patente,consumo);
+    public Automobile(String posizione, double tariffaOraria,
+                      double consumoOrario, String targa) {
+        super(posizione, 2, tariffaOraria, consumoOrario);
         this.targa = targa;
-        this.carburante = true;
-        this.livelloCarburante=100.00;
-    }
-
-    public boolean isCarburante() {
-        return carburante;
-    }
-
-    public void setCarburante(boolean carburante) {
-        this.carburante = carburante;
+        this.livelloCarburante = 100.00;
     }
 
     public String getTarga() {
@@ -28,19 +19,26 @@ public class Automobile extends Vehicle {
     }
 
     @Override
+    public boolean getStatoEnergia() {
+        if (livelloCarburante < 5) setStatoEnergia(false);
+        return super.getStatoEnergia();
+    }
+
+    @Override
     public double getLivelloEnergia(){
         return livelloCarburante;
     }
+
     @Override
     public void setLivelloEnergia(double livello){
-        this.livelloCarburante=livello;
+        this.livelloCarburante = livello;
     }
 
     @Override
     public String toString() {
         return "Automobile{" + super.toString()+
                 ", targa='" + targa + '\'' +
-                ", carburante=" + carburante +
+                ", livelloCarburante=" + livelloCarburante +
                 '}';
     }
 }

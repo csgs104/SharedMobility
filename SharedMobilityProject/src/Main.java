@@ -1,14 +1,17 @@
 import database.Database;
 import database.DatabaseFile;
+import entity.Rental;
 import entity.User;
+import entity.Vehicle;
+import entity.tipoveicolo.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
-    public static void main(String[] args) {
-        Database database = new Database();
-        DatabaseFile db_file = new DatabaseFile(Paths.get("SharedMobilityProject", "src", "files", "users.txt"));
+    public static void main(String[] args) throws InterruptedException {
+        // Database db = new Database();
+        Database dbFile = new DatabaseFile(Paths.get( "src", "files", "users.txt"));
         // Users
         User u1 = new User("Cristian", "Torrisi",
                 "CRSTN12TRRS345", "2001-01-31", 2);
@@ -20,43 +23,39 @@ public class Main {
                 "NNM9876QLCN543", "1980-12-11", 1);
         User u5 = new User("Viola", "Natale",
                 "VLO9876NTLE543", "2004-03-01", 0);
-    /*
+
         // Vehicles
-        Vehicle v1 = new Automobile(12.00,2,"abc123abc");
-        Vehicle v2 = new Monopattino(8.0,2);
-        Vehicle v3 = new Furgone(20.00,2,"cdcdcdcd");
-        Vehicle v4 = new Bicicletta(10.00,2);
-        Vehicle v5 = new Moto(11.00,2,"ffssaa");
+        Vehicle v1 = new Automobile("Roma", 2.55,2.00,"abc123abc");
+        Vehicle v2 = new Monopattino("Milano",1.15, 0.50);
+        Vehicle v3 = new Furgone("Torino", 10.00,5.50,"cdcdcdcd");
+        Vehicle v4 = new Bicicletta("Napoli", 40.40);
+        Vehicle v5 = new Moto("Verona", 0.90,60,"ffssaa");
 
-        database.addUser(u1);
-        database.addUser(u2);
-        database.addUser(u3);
-        database.addUser(u4);
-        database.addUser(u5);
-        // database.printUsers();
+        dbFile.addUser(u1);
+        dbFile.addUser(u2);
+        dbFile.addUser(u3);
+        dbFile.addUser(u4);
+        dbFile.addUser(u5);
+        dbFile.printUsers();
 
-        database.addVehicle(v1);
-        database.addVehicle(v2);
-        database.addVehicle(v3);
-        database.addVehicle(v4);
-        database.addVehicle(v5);
-        // database.printVehicles();
+        dbFile.addVehicle(v1);
+        dbFile.addVehicle(v2);
+        dbFile.addVehicle(v3);
+        dbFile.addVehicle(v4);
+        dbFile.addVehicle(v5);
+        dbFile.printVehicles();
 
-        database.addRental(u1, v1);
-        database.addRental(u2, v2);
-        database.addRental(u3, v3);
-        database.addRental(u4, v4);
-        database.addRental(u5, v5);
-        // database.printRentals();*/
+        Rental r0 = dbFile.rent(u1, v1);
+        Rental r1 = dbFile.rent(u2, v2);
+        Rental r2 = dbFile.rent(u3, v3);
+        Rental r3 = dbFile.rent(u4, v4);
+        Rental r4 = dbFile.rent(u5, v5);
+        dbFile.printRentals();
+        System.out.println(r1);
 
-        /*
-        db_file.addUser(u1);
-        db_file.addUser(u2);
-        db_file.addUser(u3);
-        db_file.addUser(u4);
-        db_file.addUser(u5);
-        */
-
-
+        dbFile.startRental(r1.getId());
+        //Thread.sleep(11000);
+        //dbFile.endRental(r1.getId());
+        //dbFile.printRentals();
     }
 }

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 
 public class DatabaseFile extends Database{
 
@@ -31,6 +30,7 @@ public class DatabaseFile extends Database{
             System.out.println(ex.getMessage());
         }
     }
+
     @Override
     public void deleteUser(Integer userId) {
         getUserTable().remove(userId);
@@ -40,6 +40,7 @@ public class DatabaseFile extends Database{
             System.out.println(ex.getMessage());
         }
     }
+
     @Override
     public User registration(User user) {
         User user_in = getUserTable().put(user.getId(), user);
@@ -61,14 +62,14 @@ public class DatabaseFile extends Database{
         }
     }
 
-        private void saveFileUtenti() throws IOException {
-            BufferedWriter bw = Files.newBufferedWriter(path_file);
+    private void saveFileUtenti() throws IOException {
+        BufferedWriter bw = Files.newBufferedWriter(path_file);
 
-            for (User utente : getUserTable().values()) {
-                bw.write(utente.writeToCsv());
-                bw.newLine();
-            }
-
-            bw.close();
+        for (User utente : getUserTable().values()) {
+            bw.write(utente.writeToCsv());
+            bw.newLine();
         }
+
+        bw.close();
+    }
 }
