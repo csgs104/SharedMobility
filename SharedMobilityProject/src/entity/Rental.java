@@ -106,8 +106,9 @@ public class Rental {
      */
     public void togliCarburante(){
         Duration duration = Duration.between(start, end);
-        double price = duration.toHours() * vehicle.getConsumoOrario();
-        vehicle.setLivelloEnergia(vehicle.getLivelloEnergia() - price);
+        double price = duration.toSeconds()  * vehicle.getConsumoOrario(); // da rimettere .toHours()
+        double energia = vehicle.getLivelloEnergia();
+        vehicle.setLivelloEnergia(energia - price);
     }
 
     /**
@@ -116,8 +117,9 @@ public class Rental {
      */
     public void togliSoldi() {
         Duration duration = Duration.between(start, end);
-        double price = duration.toHours() * vehicle.getTariffaOraria();
-        user.setWallet(user.getWallet() - price);
+        double price = duration.toSeconds() * vehicle.getTariffaOraria(); // da rimettere .toHours()
+        double wallet = user.getWallet();
+        user.setWallet(wallet - price);
     }
 
 }

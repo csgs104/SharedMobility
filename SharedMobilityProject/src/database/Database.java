@@ -85,6 +85,10 @@ public class Database {
             rental.getVehicle().setDisponibilita(true);
             rental.togliSoldi();
             rental.togliCarburante();
+            User userUpdated = rental.getUser();
+            Vehicle vehicleUpdated = rental.getVehicle();
+            userTable.put(userUpdated.getId(), userUpdated);
+            vehicleTable.put(vehicleUpdated.getId(), vehicleUpdated);
         }
     }
 

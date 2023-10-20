@@ -30,13 +30,13 @@ public class Main {
         Vehicle v3 = new Furgone("Torino", 10.00,5.50,"cdcdcdcd");
         Vehicle v4 = new Bicicletta("Napoli", 40.40);
         Vehicle v5 = new Moto("Verona", 0.90,60,"ffssaa");
-
         dbFile.addUser(u1);
         dbFile.addUser(u2);
         dbFile.addUser(u3);
         dbFile.addUser(u4);
         dbFile.addUser(u5);
         dbFile.printUsers();
+        System.out.println("");
 
         dbFile.addVehicle(v1);
         dbFile.addVehicle(v2);
@@ -44,6 +44,7 @@ public class Main {
         dbFile.addVehicle(v4);
         dbFile.addVehicle(v5);
         dbFile.printVehicles();
+        System.out.println();
 
         Rental r0 = dbFile.rent(u1, v1);
         Rental r1 = dbFile.rent(u2, v2);
@@ -51,11 +52,21 @@ public class Main {
         Rental r3 = dbFile.rent(u4, v4);
         Rental r4 = dbFile.rent(u5, v5);
         dbFile.printRentals();
-        System.out.println(r1);
+        System.out.println();
 
+        dbFile.startRental(r0.getId());
         dbFile.startRental(r1.getId());
-        //Thread.sleep(11000);
-        //dbFile.endRental(r1.getId());
-        //dbFile.printRentals();
+        dbFile.startRental(r2.getId());
+        Thread.sleep(12000);
+        dbFile.endRental(r0.getId());
+        dbFile.endRental(r1.getId());
+        dbFile.endRental(r2.getId());
+        dbFile.printRentals();
+
+        System.out.println();
+        dbFile.printUsers();
+
+        System.out.println();
+        dbFile.printVehicles();
     }
 }
