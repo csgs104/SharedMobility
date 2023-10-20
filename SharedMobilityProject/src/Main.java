@@ -1,5 +1,7 @@
 import database.Database;
 import database.DatabaseFile;
+import entity.User;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -8,7 +10,7 @@ public class Main {
         Database database = new Database();
         DatabaseFile db_file = new DatabaseFile(Paths.get("SharedMobilityProject", "src", "files", "users.txt"));
         // Users
-        /*User u1 = new User("Cristian", "Torrisi",
+        User u1 = new User("Cristian", "Torrisi",
                 "CRSTN12TRRS345", "2001-01-31", 2);
         User u2 = new User("Stefano", "Casagrande",
                 "STFN67CSGRND89", "1998-04-26", 0);
@@ -18,7 +20,7 @@ public class Main {
                 "NNM9876QLCN543", "1980-12-11", 1);
         User u5 = new User("Viola", "Natale",
                 "VLO9876NTLE543", "2004-03-01", 0);
-
+    /*
         // Vehicles
         Vehicle v1 = new Automobile(12.00,2,"abc123abc");
         Vehicle v2 = new Monopattino(8.0,2);
@@ -46,6 +48,14 @@ public class Main {
         database.addRental(u4, v4);
         database.addRental(u5, v5);
         // database.printRentals();*/
+
+        /*
+        db_file.addUser(u1);
+        db_file.addUser(u2);
+        db_file.addUser(u3);
+        db_file.addUser(u4);
+        db_file.addUser(u5);
+        */
 
 
     }

@@ -109,10 +109,9 @@ public class User {
     }
 
     public String writeToCsv(){
-        return this.id + "," + this.name + "," + this.surname + "," + this.cod_fiscale + "," + this.wallet + ","+
+        return this.id + "," + this.name + "," + this.surname + "," + this.cod_fiscale + "," +this.data_nascita+ "," + this.wallet + ","+
                 this.patente + "," + this.casco;
     }
-
 
     @Override
     public String toString() {
