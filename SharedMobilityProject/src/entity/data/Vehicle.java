@@ -87,7 +87,7 @@ public abstract class Vehicle extends Entity {
     public abstract boolean hasEnergy();
 
     public boolean requirement(User user) {
-        return hasEnergy() && user.getLicense().getLevel() >= level && availability && user.getCredit() > 0;
+        return hasEnergy() && user.getLicense() != null && user.getLicense().getLevel() >= level && availability && user.getCredit() > 0;
     }
 
     @Override

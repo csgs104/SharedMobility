@@ -134,8 +134,8 @@ public class Rental extends Entity {
         String[] lines = line.split(",");
         Rental rental = new Rental(UUID.fromString(lines[1]), UUID.fromString(lines[2]));
         rental.setId(UUID.fromString(lines[0]));
-        rental.setStart(LocalDateTime.parse(lines[3]));
-        rental.setEnd(LocalDateTime.parse(lines[4]));
+        rental.setStart(lines[3].equals("null") ? null : LocalDateTime.parse(lines[3]));
+        rental.setEnd(lines[4].equals("null") ? null : LocalDateTime.parse(lines[4]));
         return rental;
     }
 

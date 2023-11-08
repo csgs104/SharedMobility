@@ -1,6 +1,11 @@
 package entity.data.vehicle;
 
 import entity.data.Vehicle;
+import entity.data.vehicle.motor.Car;
+import entity.data.vehicle.motor.Scooter;
+import entity.data.vehicle.motor.Truck;
+import entity.data.vehicle.motor.Van;
+import entity.data.vehicle.simple.Bicycle;
 
 import java.util.UUID;
 
@@ -56,25 +61,41 @@ public class MotorVehicle extends Vehicle {
     }
 
     public static Vehicle fromCsv(String[] lines) {
-        Vehicle vehicle = new MotorVehicle(lines[1], Integer.parseInt(lines[2]),
-                Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
-                lines[5], Boolean.parseBoolean(lines[6]), lines[7],
-                Integer.parseInt(lines[8]), Integer.parseInt(lines[9]));
-        vehicle.setId(UUID.fromString(lines[0]));
-        return vehicle;
+        return switch (lines[lines.length - 2].toLowerCase()) {
+            case "car" -> new Car(UUID.fromString(lines[0]), lines[1], Integer.parseInt(lines[2]),
+                    Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
+                    lines[5], Boolean.parseBoolean(lines[6]), lines[7],
+                    Double.parseDouble(lines[8]), Double.parseDouble(lines[9]));
+            case "scooter" -> new Scooter(UUID.fromString(lines[0]), lines[1], Integer.parseInt(lines[2]),
+                    Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
+                    lines[5], Boolean.parseBoolean(lines[6]), lines[7],
+                    Double.parseDouble(lines[8]), Double.parseDouble(lines[9]));
+            case "truck" -> new Truck(UUID.fromString(lines[0]), lines[1], Integer.parseInt(lines[2]),
+                    Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
+                    lines[5], Boolean.parseBoolean(lines[6]), lines[7],
+                    Double.parseDouble(lines[8]), Double.parseDouble(lines[9]));
+            case "van" -> new Van(UUID.fromString(lines[0]), lines[1], Integer.parseInt(lines[2]),
+                    Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
+                    lines[5], Boolean.parseBoolean(lines[6]), lines[7],
+                    Double.parseDouble(lines[8]), Double.parseDouble(lines[9]));
+            default -> null;
+        };
     }
 
     public static String toCsv(Vehicle vehicle) {
+        String nominative = vehicle.getNominative();
         MotorVehicle motorVehicle = (MotorVehicle) vehicle;
         return  motorVehicle.getId() + "," +
+                motorVehicle.getName() + "," +
                 motorVehicle.getLevel() + "," +
-                motorVehicle.getEnergy() + "," +
+                motorVehicle.getEnergyRate() + "," +
                 motorVehicle.getMoneyRate() + "," +
                 motorVehicle.getLocation() + "," +
                 motorVehicle.getAvailability() + "," +
                 motorVehicle.getPlate() + "," +
                 motorVehicle.getFuelMin() + "," +
-                motorVehicle.getFuelLevel();
+                motorVehicle.getFuelLevel() + "," +
+                nominative;
     }
 
 }

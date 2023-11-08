@@ -71,9 +71,13 @@ public class Database {
     public void putRental(User user, Vehicle vehicle) {
         User userIn = userTable.get(user.getId());
         Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
-        if (userIn != null && vehicleIn != null && Rental.checkAll(user, vehicle)) {
-            Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
-            rentalTable.put(rental.getId(), rental);
+        License licenseIn = licenseTable.get(user.getLicenseId());
+        if (userIn != null && vehicleIn != null && licenseIn != null) {
+            userIn.setLicense(licenseIn);
+            if (Rental.checkAll(user, vehicle)) {
+                Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+                rentalTable.put(rental.getId(), rental);
+            }
         }
     }
     public Rental getRental(UUID id) {
@@ -89,10 +93,14 @@ public class Database {
     public Rental rent(User user, Vehicle vehicle) {
         User userIn = userTable.get(user.getId());
         Vehicle vehicleIn = vehicleTable.get(vehicle.getId());
-        if (userIn != null && vehicleIn != null && Rental.checkAll(userIn, vehicleIn)) {
-            Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
-            rentalTable.put(rental.getId(), rental);
-            return rentalTable.get(rental.getId());
+        License licenseIn = licenseTable.get(user.getLicenseId());
+        if (userIn != null && vehicleIn != null && licenseIn != null) {
+            userIn.setLicense(licenseIn);
+            if (Rental.checkAll(user, vehicle)) {
+                Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+                rentalTable.put(rental.getId(), rental);
+                return rentalTable.get(rental.getId());
+            }
         }
         return null;
     }
@@ -128,7 +136,7 @@ public class Database {
 
     public Set<License> getLicenses() {
         Set<License> entities = new HashSet<>();
-        for (UUID id : userTable.keySet()) entities.add(licenseTable.get(id));
+        for (UUID id : licenseTable.keySet()) entities.add(licenseTable.get(id));
         return entities;
     }
 
@@ -151,11 +159,11 @@ public class Database {
     }
 
     public void printLicenses() {
-        Set<UUID> keys = userTable.keySet();
+        Set<UUID> keys = licenseTable.keySet();
         System.out.println("##########################################################################################");
         System.out.println("######################################## LICENSES ########################################");
         System.out.println("##########################################################################################");
-        for (UUID key : keys) System.out.println(userTable.get(key));
+        for (UUID key : keys) System.out.println(licenseTable.get(key));
         System.out.println("##########################################################################################");
     }
 

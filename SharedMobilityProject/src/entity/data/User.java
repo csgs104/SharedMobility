@@ -125,7 +125,6 @@ public class User extends Entity {
                 user.getSurname() + "," +
                 user.getCode() + "," +
                 user.getBirth() + "," +
-                user.getLicense() + "," +
                 user.getCredit() + "," +
                 user.getHelmet() + "," +
                 user.getLicenseId();

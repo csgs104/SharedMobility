@@ -38,11 +38,9 @@ public class License extends Entity {
     public int getLevel() {
         return level;
     }
-
     public LocalDate getExpiration() {
         return expiration;
     }
-
     public LocalDate getRelease() {
         return release;
     }
@@ -50,18 +48,16 @@ public class License extends Entity {
     public void setLevel(int level) {
         this.level = level;
     }
-
     public void setExpiration(LocalDate expiration) {
         this.expiration = expiration;
     }
-
     public void setRelease(LocalDate release) {
         this.release = release;
     }
 
     @Override
     public String toString() {
-        return "Patente{" +
+        return "License{" +
                 "id=" + getId() +
                 ", level=" + level +
                 ", release=" + release +
@@ -71,7 +67,9 @@ public class License extends Entity {
 
     public static License fromCsv(String line){
         String[] lines = line.split(",");
-        return new License(UUID.fromString(lines[0]), Integer.parseInt(lines[1]), LocalDate.parse(lines[2]), LocalDate.parse(lines[3]));
+        return new License(UUID.fromString(lines[0]), Integer.parseInt(lines[1]),
+                lines[2].equals("null") ? null : LocalDate.parse(lines[2]),
+                lines[2].equals("null") ? null : LocalDate.parse(lines[3]));
     }
 
     public static String toCsv(License license){

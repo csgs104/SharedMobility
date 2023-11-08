@@ -1,0 +1,5 @@
+220fb4a0-46d3-4da0-97e9-b542333b4ebd,Bianchi,0,0.0,1.2,Roma,true,Bicycle,simple
+75868711-8b92-4211-bda3-41c02e212b63,XYZ,0,100.0,2.2,Milano,true,10.0,100.0,Skate,electric
+9d329e14-142f-4d8f-9e16-1e53f4edee5b,Honda,1,100.0,3.1,Torino,true,SCR1,5.0,100.0,Scooter,motor
+c089efae-90d9-4188-91e8-46f6a0ec5139,Nissan,3,100.0,4.1,Verona,true,VAN1,8.0,100.0,Van,motor
+937fd150-27ee-40cc-a789-afc4bc2398de,Fiat,2,100.0,4.1,Trieste,true,CAR1,8.0,100.0,Car,motor

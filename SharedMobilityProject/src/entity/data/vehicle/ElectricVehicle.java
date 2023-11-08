@@ -1,6 +1,7 @@
 package entity.data.vehicle;
 
 import entity.data.Vehicle;
+import entity.data.vehicle.electric.Skate;
 
 import java.util.UUID;
 
@@ -49,24 +50,28 @@ public class ElectricVehicle extends Vehicle {
     }
 
     public static Vehicle fromCsv(String[] lines) {
-        Vehicle vehicle = new ElectricVehicle(lines[1], Integer.parseInt(lines[2]),
-                Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
-                lines[5], Boolean.parseBoolean(lines[6]),
-                Integer.parseInt(lines[7]), Integer.parseInt(lines[8]));
-        vehicle.setId(UUID.fromString(lines[0]));
-        return vehicle;
+        return switch (lines[lines.length - 2].toLowerCase()) {
+            case "skate" -> new Skate(UUID.fromString(lines[0]), lines[1], Integer.parseInt(lines[2]),
+                    Double.parseDouble(lines[3]), Double.parseDouble(lines[4]),
+                    lines[5], Boolean.parseBoolean(lines[6]),
+                    Double.parseDouble(lines[7]), Double.parseDouble(lines[8]));
+            default -> null;
+        };
     }
 
     public static String toCsv(Vehicle vehicle) {
+        String nominative = vehicle.getNominative();
         ElectricVehicle electricVehicle = (ElectricVehicle) vehicle;
         return  electricVehicle.getId() + "," +
+                electricVehicle.getName() + "," +
                 electricVehicle.getLevel() + "," +
-                electricVehicle.getEnergy() + "," +
+                electricVehicle.getEnergyRate() + "," +
                 electricVehicle.getMoneyRate() + "," +
                 electricVehicle.getLocation() + "," +
                 electricVehicle.getAvailability() + "," +
                 electricVehicle.getBatteryMin() + "," +
-                electricVehicle.getBatteryLevel();
+                electricVehicle.getBatteryLevel() + "," +
+                nominative;
     }
 
 

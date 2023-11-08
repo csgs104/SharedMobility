@@ -113,14 +113,14 @@ public class DatabaseFile extends Database {
     @Override
     public void putLicense(License entity) {
         super.putLicense(entity);
-        try { saveUsers(); }
+        try { saveLicenses(); }
         catch (IOException e) { System.out.println(e.getMessage()); }
     }
 
     @Override
     public void removeLicense(UUID id) {
         super.removeUser(id);
-        try { saveUsers(); }
+        try { saveLicenses(); }
         catch (IOException e) { System.out.println(e.getMessage()); }
     }
 
@@ -156,11 +156,15 @@ public class DatabaseFile extends Database {
     public void putRental(User user, Vehicle vehicle) {
         User userIn = getUserTable().get(user.getId());
         Vehicle vehicleIn = getVehicleTable().get(vehicle.getId());
-        if (userIn != null && vehicleIn != null && Rental.checkAll(user, vehicle)) {
-            Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
-            getRentalTable().put(rental.getId(), rental);
-            try { saveRentals(); }
-            catch (IOException e) { System.out.println(e.getMessage()); }
+        License licenseIn = getLicenseTable().get(user.getLicenseId());
+        if (userIn != null && vehicleIn != null && licenseIn != null) {
+            userIn.setLicense(licenseIn);
+            if (Rental.checkAll(user, vehicle)) {
+                Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+                getRentalTable().put(rental.getId(), rental);
+                try { saveRentals(); }
+                catch (IOException e) { System.out.println(e.getMessage()); }
+            }
         }
     }
 
@@ -175,12 +179,16 @@ public class DatabaseFile extends Database {
     public Rental rent(User user, Vehicle vehicle) {
         User userIn = getUserTable().get(user.getId());
         Vehicle vehicleIn = getVehicleTable().get(vehicle.getId());
-        if (userIn != null && vehicleIn != null && Rental.checkAll(userIn, vehicleIn)) {
-            Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
-            Rental rentalIn = getRentalTable().put(rental.getId(), rental);
-            try { saveRentals(); }
-            catch (IOException e) { System.out.println(e.getMessage()); }
-            return rentalIn;
+        License licenseIn = getLicenseTable().get(user.getLicenseId());
+        if (userIn != null && vehicleIn != null && licenseIn != null) {
+            userIn.setLicense(licenseIn);
+            if (Rental.checkAll(user, vehicle)) {
+                Rental rental = new Rental(userIn.getId(), vehicleIn.getId(), userIn, vehicleIn);
+                Rental rentalIn = getRentalTable().put(rental.getId(), rental);
+                try { saveRentals(); }
+                catch (IOException e) { System.out.println(e.getMessage()); }
+                return rentalIn;
+            }
         }
         return null;
     }
